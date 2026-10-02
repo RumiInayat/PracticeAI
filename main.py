@@ -1,7 +1,7 @@
 import re
 import json
 import streamlit as st
-from openai import OpenAI, APIConnectionError, APIStatusError, AuthenticationError, RateLimitError
+from openai import OpenAI, APIConnectionError, APIStatusError, RateLimitError
 
 # -----------------------------------------------------------------------------
 # 1. Page Configuration & Custom CSS
@@ -243,8 +243,6 @@ def generate_ai_response(client, primary_model, fallback_model, messages, subjec
                 return None, f"⚠️ **Model Service Failure:**\n- Primary ({primary_model}): {primary_err}\n- Fallback ({fallback_model}): {fallback_err}", False
         else:
             return None, f"⚠️ **Groq API Error ({primary_model}):** {str(primary_err)}", False
-    except AuthenticationError:
-        return None, "🔑 **Authentication Error:** Invalid Groq API key. Please check `API_KEY` in `main.py`.", False
     except Exception as e:
         return None, f"❌ **Unexpected Error:** {str(e)}", False
 
